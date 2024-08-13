@@ -1,0 +1,23 @@
+image: alpine/git:1.0.26
+
+definitions:
+  services:
+    docker:
+      memory: 1024
+
+  steps:
+    - step: &Push-to-GitHub
+        name: Push code changes to GitHub
+        services:
+          - docker
+        caches:
+          - docker
+        script:
+          - git remote add github "git@github.com:consiliumsolutions/p01e-high-res.git"
+          - git checkout $BITBUCKET_BRANCH
+          - git pull
+          - git push github $BITBUCKET_BRANCH
+
+pipelines:
+  default:
+    - step: *Push-to-GitHub
