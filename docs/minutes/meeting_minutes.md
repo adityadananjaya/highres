@@ -165,13 +165,11 @@
 - **Discussion:** Receive feedback on the video and whether it is necessary to use template provided
 - **Action Items:** Successfully received instructions on what is recommended for the next video.
 
-**Additional Notes:**  
-[Additional Notes Placeholder]
 
 **Next Meeting:**
-- **Date:** [Next Meeting Date Placeholder]
-- **Time:** [Next Meeting Time Placeholder]
-- **Location:** [Next Meeting Location Placeholder]
+- **Date:** 17/08/2024
+- **Time:** 5:00 PM
+- **Location:** Discord Call
 
 ---
 
@@ -179,43 +177,37 @@
 
 ---
 
-## Meeting Title: [Meeting Title Placeholder]
+## Meeting Title: Team Out-of-Tutorial Meeting 1
 
-**Date:** [Date Placeholder]  
-**Time:** [Time Placeholder]  
-**Location:** [Location Placeholder]  
+**Date:** 17/08/2024
+**Time:** 5:00 PM  
+**Location:** Discord Call
 **Attendees:**  
-- [Attendee 1 Placeholder]  
-- [Attendee 2 Placeholder]  
-- [Attendee 3 Placeholder]  
-- [Additional Attendees Placeholder]
+- Shabab Saleheen  
+- Tolga Sirkeci
+- Broden Suffern  
+- Aditya Dananjaya
 
 **Agenda:**
-1. [Agenda Item 1 Placeholder]
-2. [Agenda Item 2 Placeholder]
-3. [Agenda Item 3 Placeholder]
+1. Discussion of the use of PyTorch
+2. Setting up YOLO model
 
 **Meeting Notes:**
 
-### 1. [Agenda Item 1 Placeholder]
-- **Discussion:** [Discussion Notes Placeholder]
-- **Action Items:** [Action Item 1 Placeholder]
+### 1. Discussion of the use of PyTorch
+- **Discussion:** Discussed our experience of learning PyTorch: taking various tutorials to write models trained on basic datasets
+such as MNIST, FashionMNIST and the Iris dataset.
+- **Action Items:** Successfully learnt the basics of PyTorch over the week ready to be applied to the project.
 
-### 2. [Agenda Item 2 Placeholder]
-- **Discussion:** [Discussion Notes Placeholder]
-- **Action Items:** [Action Item 2 Placeholder]
+### 2. Setting up YOLO model
+- **Discussion:** Figure out how to get the YOLO models onto our local machines and play around with them.
+- **Action Items:** Successfully set this up.
 
-### 3. [Agenda Item 3 Placeholder]
-- **Discussion:** [Discussion Notes Placeholder]
-- **Action Items:** [Action Item 3 Placeholder]
-
-**Additional Notes:**  
-[Additional Notes Placeholder]
 
 **Next Meeting:**
-- **Date:** [Next Meeting Date Placeholder]
-- **Time:** [Next Meeting Time Placeholder]
-- **Location:** [Next Meeting Location Placeholder]
+- **Date:** 19/08/2024
+- **Time:** 10:00 AM
+- **Location:** Madsen Building
 
 ---
 
@@ -223,43 +215,43 @@
 
 ---
 
-## Meeting Title: [Meeting Title Placeholder]
+## Meeting Title: Team Meeting In-Tutorial 3
 
-**Date:** [Date Placeholder]  
-**Time:** [Time Placeholder]  
-**Location:** [Location Placeholder]  
+**Date:** 19/08/2024
+**Time:** 10:00 AM  
+**Location:** Madsen Building  
 **Attendees:**  
-- [Attendee 1 Placeholder]  
-- [Attendee 2 Placeholder]  
-- [Attendee 3 Placeholder]  
-- [Additional Attendees Placeholder]
+- Shabab Saleheen  
+- Tolga Sirkeci
+- Broden Suffern  
+- Aditya Dananjaya
 
 **Agenda:**
-1. [Agenda Item 1 Placeholder]
-2. [Agenda Item 2 Placeholder]
-3. [Agenda Item 3 Placeholder]
+1. Project plan presentation
+2. Discussion of the project
+3. Discussion of the questions to ask the client in the next client meeting
 
 **Meeting Notes:**
 
-### 1. [Agenda Item 1 Placeholder]
-- **Discussion:** [Discussion Notes Placeholder]
-- **Action Items:** [Action Item 1 Placeholder]
+### 1. Project plan presentation
+- **Discussion:** Presented the groups project and its plans (complete production timeline) to the tutor and class. 
+- **Action Items:** Garnered insightful questions from the audience.
 
-### 2. [Agenda Item 2 Placeholder]
-- **Discussion:** [Discussion Notes Placeholder]
-- **Action Items:** [Action Item 2 Placeholder]
+### 2. Discussion of the project
+- **Discussion:** Discussed the use of the YOLO models on some of the provided images.
+- **Action Items:** The results weren't all too great, so far YOLOv8 produced the best results.
 
-### 3. [Agenda Item 3 Placeholder]
-- **Discussion:** [Discussion Notes Placeholder]
-- **Action Items:** [Action Item 3 Placeholder]
+### 3. Discussion of the questions to ask the client in the next client meeting
+- **Discussion:** The main question discussed was since we were given permission to use an on-the-market
+model to label our data and the people working on the same project started collectively labelling the new discord dataset, is our plan
+the same i.e., do we have to label our own data in the first place or can we also just use the same discord dataset everyone's using.
+- **Action Items:** Added this to the list of questions for the next client meeting.
 
-**Additional Notes:**  
-[Additional Notes Placeholder]
 
 **Next Meeting:**
-- **Date:** [Next Meeting Date Placeholder]
-- **Time:** [Next Meeting Time Placeholder]
-- **Location:** [Next Meeting Location Placeholder]
+- **Date:** 19/08/2024
+- **Time:** 3:20 PM
+- **Location:** Discord Call
 
 ---
 
@@ -267,43 +259,46 @@
 
 ---
 
-## Meeting Title: [Meeting Title Placeholder]
+## Meeting Title: Team Meeting with Client 2
 
-**Date:** [Date Placeholder]  
-**Time:** [Time Placeholder]  
-**Location:** [Location Placeholder]  
+**Date:** 19/08/2024 
+**Time:** 3:20 PM
+**Location:** Discord Call
 **Attendees:**  
-- [Attendee 1 Placeholder]  
-- [Attendee 2 Placeholder]  
-- [Attendee 3 Placeholder]  
-- [Additional Attendees Placeholder]
+- Shabab Saleheen  
+- Tolga Sirkeci
+- Broden Suffern  
+- Aditya Dananjaya
+- Cian Byrne
 
 **Agenda:**
-1. [Agenda Item 1 Placeholder]
-2. [Agenda Item 2 Placeholder]
-3. [Agenda Item 3 Placeholder]
+1. The use of on-the-market models for labelling data
+2. How many resolutions will we train the model on
+3. Github commit expectations
 
 **Meeting Notes:**
 
-### 1. [Agenda Item 1 Placeholder]
-- **Discussion:** [Discussion Notes Placeholder]
-- **Action Items:** [Action Item 1 Placeholder]
+### 1. The use of on-the-market models for labelling data
+- **Discussion:** Asked whether we are still to use an on-the-market model for labelling our own dataset or contribute to the
+collective labelling of the discord dataset.
+- **Action Items:** Plan has been set: we are to solely work on the boat dataset provided by the client and label the dataset
+with a pretrained boat model.
 
-### 2. [Agenda Item 2 Placeholder]
-- **Discussion:** [Discussion Notes Placeholder]
-- **Action Items:** [Action Item 2 Placeholder]
+### 2. How many resolutions will we train the model on
+- **Discussion:** Asked how many resolutions our project should aim to work on.
+- **Action Items:** Two resolutions: 16 MP and 64 MP
 
-### 3. [Agenda Item 3 Placeholder]
-- **Discussion:** [Discussion Notes Placeholder]
-- **Action Items:** [Action Item 3 Placeholder]
+### 3. Github commit expectations
+- **Discussion:** Asked if by this point we are to have any substainial git commits on the Github by now.
+- **Action Items:** Not necessarily, but we should have some helper functions or some basic code pushed.
 
 **Additional Notes:**  
-[Additional Notes Placeholder]
+Gain access to Strong Compute GPUs.
 
 **Next Meeting:**
-- **Date:** [Next Meeting Date Placeholder]
-- **Time:** [Next Meeting Time Placeholder]
-- **Location:** [Next Meeting Location Placeholder]
+- **Date:** 24/08/2024
+- **Time:** 5:00 PM
+- **Location:** Discord Call
 
 ---
 
