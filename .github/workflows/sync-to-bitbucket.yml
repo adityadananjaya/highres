@@ -1,24 +1,26 @@
-name: Sync to Bitbucket
+name: Mirror to Bitbucket
 
 on:
   push:
-    branches:
-      - '**'  # This will trigger the workflow on pushes to any branch
+    branches: 
+      - '**'
+  pull_request:
+    types: [opened, synchronize, closed]
 
 jobs:
-  sync:
+  mirror:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Fetch all history for all branches and tags
+          fetch-depth: 0
 
-      - name: Push to Bitbucket
+      - name: Mirror to Bitbucket
         env:
           BITBUCKET_USERNAME: ${{ secrets.SHABAB_BITBUCKET_USERNAME }}
           BITBUCKET_APP_PASSWORD: ${{ secrets.SHABAB_BITBUCKET_APP_PASSWORD }}
         run: |
-          git remote add bitbucket https://$SHABAB_BITBUCKET_USERNAME:$SHABAB_BITBUCKET_APP_PASSWORD@bitbucket.org/comp3888_m10_3_/capstone_project.git
+          git remote add bitbucket https://${SHABAB_BITBUCKET_USERNAME}:${SHABAB_BITBUCKET_APP_PASSWORD}@bitbucket.org/comp3888_m10_3_/capstone_project.git
           git push bitbucket --all --force
           git push bitbucket --tags --force
