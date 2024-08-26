@@ -9,9 +9,11 @@ def yolotxt_to_voc(folder_path):
     data_arr = []
 
     for label_file in dir:
+
         voc_data_arr = []
-        with open(label_file, "r") as f:
+        with open(folder_path + '/' + label_file, "r") as f:
             for line in f.readlines():
+                # print(line)
                 yolo_data = line.split(" ")
                 try:
                     x_centre = float(yolo_data[1])
