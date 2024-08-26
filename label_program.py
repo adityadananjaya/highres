@@ -8,7 +8,8 @@ if (len(sys.argv) != 3):
 
 if (sys.argv[1] == 'yolotxt_to_voc'):
         try:
-            label_convertor.yolotxt_to_voc(sys.argv[2])
+            outputs = label_convertor.yolotxt_to_voc(sys.argv[2])
+            print(outputs)
         except OSError as e:
             print(traceback.print_exc())
 
