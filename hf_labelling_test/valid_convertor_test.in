@@ -1,0 +1,1 @@
+python3 label_program.py yolotxt_to_voc ./hf_labelling_test/convertor_test/
