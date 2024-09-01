@@ -2,10 +2,12 @@ from dash import Dash, html, dcc, callback, Output, Input
 import plotly.express as px
 import pandas as pd
 import dash_bootstrap_components as dbc
+from math import floor
 
 results_4mp = pd.read_csv('results/4mpresults.csv')
 results_16mp = pd.read_csv('results/16mpresults.csv')
-results = pd.concat([results_16mp, results_4mp])
+results_64mp = pd.read_csv('results/64mpresults.csv')
+results = pd.concat([results_16mp, results_4mp, results_64mp])
 external_stylesheets = [dbc.themes.FLATLY]
 
 app = Dash(__name__, external_stylesheets=external_stylesheets)
@@ -19,9 +21,10 @@ controls = dbc.Card([
         dcc.Dropdown(
             options=[
                 {'label': '4 MP Images', 'value':'4'},
-                {'label': '16 MP Images', 'value':'16'}
+                {'label': '16 MP Images', 'value':'16'},
+                {'label': '64 MP Images', 'value':'64'}
             ],
-            value='4', 
+            value=['4', '16'], 
             id='resolution', 
             multi=True
         )
@@ -67,6 +70,7 @@ app.layout = dbc.Container([
     ])
 ], fluid=True)
 
+
 @callback(
     Output(component_id="boxplot", component_property="figure"),
     Input(component_id="resolution", component_property="value"),
@@ -80,12 +84,21 @@ def update_graph(resol, model, stat):
     else:
         res = results[results.resolution.isin([eval(i) for i in resol])]
 
+    mult = 1
+    
     if(type(model) is str):
         res = res[res.model == model]
     else:
         res = res[res.model.isin(model)]
+        mult = floor(len(model) / 2.5) + 1 
     
-    fig = px.box(res, x="model", y=stat, color="resolution")
+    fig = px.box(res, facet_col="model", y=stat, color="resolution", category_orders={"resolution": [4, 16, 64]}, facet_col_wrap=2)
+
+    fig.update_layout(
+        height=500*mult,
+    )
+
+
 
     return fig
 
