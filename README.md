@@ -13,6 +13,10 @@ This repository is dedicated to exploring the impact of image resolution on the 
 
 ### Tutor: Conor Chen, jche4519@uni.sydney.edu.au
 
+### User stories: [Bitbucket Link](https://bitbucket.org/comp3888_m10_3_/capstone_project/src/main/docs/user-stories/user-stories.md)
+
+### Meeting Minutes: [Bitbucket Link](https://bitbucket.org/comp3888_m10_3_/capstone_project/src/main/docs/minutes/meeting_minutes.md)
+
 ## Running the program [more features to follow]
 
 - The main program for YOLOv8 model comparisons is the **get_model_results.py**
@@ -25,4 +29,4 @@ This repository is dedicated to exploring the impact of image resolution on the 
 - If the user wants, the output images can be automatically saved in a **runs** folder by modifying the parameter for **model.predict()** within the program by providing an argument **save = True**
 
 
-### More features to follow as product develops
+### More entries and updates to follow as project progresses
