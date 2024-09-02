@@ -17,7 +17,7 @@ This repository is dedicated to exploring the impact of image resolution on the 
 
 ### Meeting Minutes: [Bitbucket Link](https://bitbucket.org/comp3888_m10_3_/capstone_project/src/main/docs/minutes/meeting_minutes.md)
 
-## Running the program [more features to follow]
+## Running the program evaluation script [more features to follow]
 
 - The main program for YOLOv8 model comparisons is the **get_model_results.py**
 - This file takes a single command line argument, which is the directory of the images
@@ -28,5 +28,25 @@ This repository is dedicated to exploring the impact of image resolution on the 
 
 - If the user wants, the output images can be automatically saved in a **runs** folder by modifying the parameter for **model.predict()** within the program by providing an argument **save = True**
 
+## Running the Data Dashboard Web App
+
+- Make sure you have Dash, Pandas, and Dash Bootstrap Components installed in your laptop. This can be done using pip in the terminal:
+'''
+pip install dash
+pip install pandas
+pip install dash-bootstrap-components
+'''
+- Clone the repository
+- In your terminal, navigate to the directory of the repository. For example:
+'''
+cd p01e-high-res
+'''
+- Within that directory, run app.py, e.g:
+'''
+python3 app.py
+''
+- If the app runs succesfully, you will be given a localhost link, e.g **http://127.0.0.1:XXXX/**. 
+- Copy that link and paste it into the web browser. This should run the app.
+- Once you are done, open the terminal back and press CTRL + C. This should terminate the app. 
 
 ### More entries and updates to follow as project progresses
