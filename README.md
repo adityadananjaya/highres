@@ -31,20 +31,23 @@ This repository is dedicated to exploring the impact of image resolution on the 
 ## Running the Data Dashboard Web App
 
 - Make sure you have Dash, Pandas, and Dash Bootstrap Components installed in your laptop. This can be done using pip in the terminal:
-'''
+```
 pip install dash
 pip install pandas
 pip install dash-bootstrap-components
-'''
+
+```
+
 - Clone the repository
 - In your terminal, navigate to the directory of the repository. For example:
-'''
+```
 cd p01e-high-res
-'''
+
+```
 - Within that directory, run app.py, e.g:
-'''
+```
 python3 app.py
-''
+```
 - If the app runs succesfully, you will be given a localhost link, e.g **http://127.0.0.1:XXXX/**. 
 - Copy that link and paste it into the web browser. This should run the app.
 - Once you are done, open the terminal back and press CTRL + C. This should terminate the app. 
