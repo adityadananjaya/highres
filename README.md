@@ -41,7 +41,9 @@ pip install dash-bootstrap-components
 ```
 cd p01e-high-res
 cd dashboard
+
 ```
+
 - Within that directory, run app.py, e.g:
 ```
 python3 app.py
