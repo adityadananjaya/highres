@@ -35,18 +35,19 @@ This repository is dedicated to exploring the impact of image resolution on the 
 pip install dash
 pip install pandas
 pip install dash-bootstrap-components
-
 ```
-
 - Clone the repository
-- In your terminal, navigate to the directory of the repository. For example:
+- In your terminal, navigate to the directory of the repository, then the dashboard. For example:
 ```
 cd p01e-high-res
+cd dashboard
 
 ```
+
 - Within that directory, run app.py, e.g:
 ```
 python3 app.py
+
 ```
 - If the app runs succesfully, you will be given a localhost link, e.g **http://127.0.0.1:XXXX/**. 
 - Copy that link and paste it into the web browser. This should run the app.
