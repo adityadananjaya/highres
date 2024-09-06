@@ -37,10 +37,10 @@ pip install pandas
 pip install dash-bootstrap-components
 ```
 - Clone the repository
-- In your terminal, navigate to the directory of the repository. For example:
+- In your terminal, navigate to the directory of the repository, then the dashboard. For example:
 ```
 cd p01e-high-res
-
+cd dashboard
 ```
 - Within that directory, run app.py, e.g:
 ```
