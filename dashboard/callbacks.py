@@ -3,10 +3,7 @@ from data_handler import *
 import plotly.express as px
 from math import floor
 
-
-def filter_results(resol, model):
-    res = get_results()
-
+def filter_results(res, resol, model):
     if(type(resol) is str):
         res = res[res.resolution == int(resol)]
     else:
@@ -35,7 +32,7 @@ def register_callbacks(app):
     )
 
     def update_graph(resol, model, stat):
-        res = filter_results(resol, model)
+        res = filter_results(get_results(), resol, model)
 
         fig = px.box(res, facet_col="model", y=stat, color="resolution", category_orders={"resolution": [4, 16, 64]}, facet_col_wrap=2)
 
