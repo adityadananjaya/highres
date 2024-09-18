@@ -51,10 +51,10 @@ def process_with_models(imgs, all_models):
             data.append(row)
     return data
 
-def process_with_models_labeled(yaml_directory):
+def process_with_models_labeled(yaml_directory, resolution):
     models = return_yolo_models()
     yaml_file = yaml_directory
-    csv_file = 'results.csv'
+    csv_file = f'{resolution}mp-labeled-results.csv'
     csv_header = ['Model','Precision','Recall','mAP50', 'mAP50-95', 'Fitness'] 
     with open(csv_file, 'w', newline='') as file:
         writer = csv.writer(file)
@@ -77,28 +77,7 @@ def process_with_models_labeled(yaml_directory):
 
     print(f"Results saved to {csv_file}")
     
-    # # csv_file = 'results.csv'
-    # # csv_header = ['Image', 'Precision', 'Recall', 'mAP50', 'mAP50-95']
-    # # with open(csv_file, 'w', newline='') as file:
-    # #     writer = csv.writer(file)
-    # #     writer.writerow(csv_header)
     
-
-    # results = model.val(data=yaml_file, save_json=True, save_txt=True, imgsz = 1736, task = 'test')
-    # # for i, image_path in enumerate(results.files):
-    # #     image_name = os.path.basename(image_path)
-    # #     precision = results.results_dict['precision'][i]
-    # #     recall = results.results_dict['recall'][i]
-    # #     map50 = results.results_dict['metrics/mAP50(B)'][i]
-    # #     map50_95 = results.results_dict['metrics/mAP50-95(B)'][i]
-    # print("Results here", results.files)
-    # exit()
-    #     # Write results to CSV
-    #     with open(csv_file, 'a', newline='') as file:
-    #         writer = csv.writer(file)
-    #         writer.writerow([image_name, precision, recall, map50, map50_95])
-
-    # print(f"Results saved to {csv_file}")
 def main():
     # get directory
     folder = ""
@@ -108,7 +87,7 @@ def main():
     mode = None
     while mode != 0 and mode != 1:
         mode = int(input("Are you working with labeled or unlabeled data? [0: Unlabeled, 1: Labeled]: "))
-
+    
 
     folder = sys.argv[1]
 
@@ -125,7 +104,8 @@ def main():
         write_csv_files(data)  
     # writing results to CSV
     elif mode == 1:
-        data = process_with_models_labeled(folder)
+        resolution = int(input("Please enter resolution of the dataset: [4: 4 megapixel, 16: 16 megapixel, 64: 64 megapixel]: "))
+        data = process_with_models_labeled(folder, resolution)
     
 
 if __name__ == "__main__":
