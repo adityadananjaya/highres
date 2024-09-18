@@ -50,6 +50,8 @@ def process_with_models(imgs, all_models):
             data.append(row)
     return data
 
+def process_with_models_labeled():
+    print("To be implemented")
 
 
 def main():
@@ -58,6 +60,10 @@ def main():
     if(len(sys.argv) != 2 or not isdir(sys.argv[1])):
         print("Please.")
         sys.exit()
+    mode = None
+    while mode != 0 and mode != 1:
+        mode = int(input("Are you working with labeled or unlabeled data? [0: Unlabeled, 1: Labeled]: "))
+
 
     folder = sys.argv[1]
 
@@ -65,10 +71,13 @@ def main():
     imgs = [join(folder, img) for img in listdir(folder)]
   
     all_models = return_yolo_models()
-
-    data = process_with_models(imgs, all_models)   
+    if mode == 0:
+        data = process_with_models(imgs, all_models) 
+        write_csv_files(data)  
     # writing results to CSV
-    write_csv_files(data)
+    elif mode == 1:
+        data = process_with_models_labeled()
+    
 
 if __name__ == "__main__":
     main()
