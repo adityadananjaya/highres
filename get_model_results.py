@@ -7,6 +7,7 @@ from math import floor
 import csv
 import sys
 import os
+from pathlib import Path
 
 def return_yolo_models():
     modelx = YOLO("yolov8x.pt")
@@ -51,24 +52,45 @@ def process_with_models(imgs, all_models):
     return data
 
 def process_with_models_labeled():
+    img_dir = Path("/home/p01e/p01e_git/p01e-high-res/4mp-dataset-labeled/valid/images")
+    lbs_dir = Path("/home/p01e/p01e_git/p01e-high-res/4mp-dataset-labeled/valid/labels")
     model = YOLO("yolov8x.pt")
-    yaml_file = "C:\\Users\\shaba\\Desktop\\capstone_project\\capstone_project\\4mp-dataset-labeled\\data.yaml"
+    yaml_file = "/home/p01e/p01e_git/p01e-high-res/4mp-dataset-labeled/data.yaml"
     csv_file = 'results.csv'
-    csv_header = ['Image', 'Precision', 'Recall', 'mAP50', 'mAP50-95']
+    csv_header = ['Image', 'mAP50', 'mAP50-95'] 
     with open(csv_file, 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(csv_header)
+    results = model.val(data=yaml_file, save_json=True, save_txt=True)
+    for i, img_path in enumerate(img_dir.glob('*')):
+        img_name = img_path.name
+        mAP50 = results.results_dict['metrics/mAP50(B)']
+        
+        
+        mAP50_95 = results.results_dict['metrics/mAP50-95(B)']
+        # Write results to CSV
+        with open(csv_file, 'a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([img_name, mAP50, mAP50_95])
+
+    print(f"Results saved to {csv_file}")
+    
+    # # csv_file = 'results.csv'
+    # # csv_header = ['Image', 'Precision', 'Recall', 'mAP50', 'mAP50-95']
+    # # with open(csv_file, 'w', newline='') as file:
+    # #     writer = csv.writer(file)
+    # #     writer.writerow(csv_header)
     
 
-    results = model.val(data=yaml_file, save_json=True, save_txt=True, imgsz = 1736)
-    # for i, image_path in enumerate(results.files):
-    #     image_name = os.path.basename(image_path)
-    #     precision = results.results_dict['precision'][i]
-    #     recall = results.results_dict['recall'][i]
-    #     map50 = results.results_dict['metrics/mAP50(B)'][i]
-    #     map50_95 = results.results_dict['metrics/mAP50-95(B)'][i]
-    print(results.maps)
-    exit()
+    # results = model.val(data=yaml_file, save_json=True, save_txt=True, imgsz = 1736, task = 'test')
+    # # for i, image_path in enumerate(results.files):
+    # #     image_name = os.path.basename(image_path)
+    # #     precision = results.results_dict['precision'][i]
+    # #     recall = results.results_dict['recall'][i]
+    # #     map50 = results.results_dict['metrics/mAP50(B)'][i]
+    # #     map50_95 = results.results_dict['metrics/mAP50-95(B)'][i]
+    # print("Results here", results.files)
+    # exit()
     #     # Write results to CSV
     #     with open(csv_file, 'a', newline='') as file:
     #         writer = csv.writer(file)
