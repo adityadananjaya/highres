@@ -51,27 +51,29 @@ def process_with_models(imgs, all_models):
             data.append(row)
     return data
 
-def process_with_models_labeled():
-    img_dir = Path("/home/p01e/p01e_git/p01e-high-res/4mp-dataset-labeled/valid/images")
-    lbs_dir = Path("/home/p01e/p01e_git/p01e-high-res/4mp-dataset-labeled/valid/labels")
-    model = YOLO("yolov8x.pt")
-    yaml_file = "/home/p01e/p01e_git/p01e-high-res/4mp-dataset-labeled/data.yaml"
+def process_with_models_labeled(yaml_directory):
+    models = return_yolo_models()
+    yaml_file = yaml_directory
     csv_file = 'results.csv'
-    csv_header = ['Image', 'mAP50', 'mAP50-95'] 
+    csv_header = ['Model','Precision','Recall','mAP50', 'mAP50-95', 'Fitness'] 
     with open(csv_file, 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(csv_header)
-    results = model.val(data=yaml_file, save_json=True, save_txt=True)
-    for i, img_path in enumerate(img_dir.glob('*')):
-        img_name = img_path.name
+
+    for name,model in models.items():
+        results = model.val(data=yaml_file, save_json=True, save_txt=True)
+    
+    
+        
         mAP50 = results.results_dict['metrics/mAP50(B)']
-        
-        
+        precision = results.results_dict['metrics/precision(B)']
+        recall = results.results_dict['metrics/recall(B)']
+        fitness = results.results_dict['fitness']
         mAP50_95 = results.results_dict['metrics/mAP50-95(B)']
         # Write results to CSV
         with open(csv_file, 'a', newline='') as file:
             writer = csv.writer(file)
-            writer.writerow([img_name, mAP50, mAP50_95])
+            writer.writerow([name, mAP50, mAP50_95, recall, precision, fitness])
 
     print(f"Results saved to {csv_file}")
     
@@ -100,7 +102,7 @@ def process_with_models_labeled():
 def main():
     # get directory
     folder = ""
-    if(len(sys.argv) != 2 or not isdir(sys.argv[1])):
+    if(len(sys.argv) != 2 and not isdir(sys.argv[1])) and not os.path.exists(sys.argv[1]):
         print("Please.")
         sys.exit()
     mode = None
@@ -111,15 +113,19 @@ def main():
     folder = sys.argv[1]
 
     # get paths of all images in folder
-    imgs = [join(folder, img) for img in listdir(folder)]
+    
   
     all_models = return_yolo_models()
     if mode == 0:
+        if not isdir(sys.argv[1]):
+            print("Not a valid directory, exiting")
+            exit()
+        imgs = [join(folder, img) for img in listdir(folder)]
         data = process_with_models(imgs, all_models) 
         write_csv_files(data)  
     # writing results to CSV
     elif mode == 1:
-        data = process_with_models_labeled()
+        data = process_with_models_labeled(folder)
     
 
 if __name__ == "__main__":
