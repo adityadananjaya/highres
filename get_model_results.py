@@ -6,7 +6,7 @@ from PIL import Image, UnidentifiedImageError
 from math import floor
 import csv
 import sys
-
+import os
 
 def return_yolo_models():
     modelx = YOLO("yolov8x.pt")
@@ -51,9 +51,30 @@ def process_with_models(imgs, all_models):
     return data
 
 def process_with_models_labeled():
-    print("To be implemented")
+    model = YOLO("yolov8x.pt")
+    yaml_file = "C:\\Users\\shaba\\Desktop\\capstone_project\\capstone_project\\4mp-dataset-labeled\\data.yaml"
+    csv_file = 'results.csv'
+    csv_header = ['Image', 'Precision', 'Recall', 'mAP50', 'mAP50-95']
+    with open(csv_file, 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(csv_header)
+    
 
+    results = model.val(data=yaml_file, save_json=True, save_txt=True, imgsz = 1736)
+    # for i, image_path in enumerate(results.files):
+    #     image_name = os.path.basename(image_path)
+    #     precision = results.results_dict['precision'][i]
+    #     recall = results.results_dict['recall'][i]
+    #     map50 = results.results_dict['metrics/mAP50(B)'][i]
+    #     map50_95 = results.results_dict['metrics/mAP50-95(B)'][i]
+    print(results.maps)
+    exit()
+    #     # Write results to CSV
+    #     with open(csv_file, 'a', newline='') as file:
+    #         writer = csv.writer(file)
+    #         writer.writerow([image_name, precision, recall, map50, map50_95])
 
+    # print(f"Results saved to {csv_file}")
 def main():
     # get directory
     folder = ""
