@@ -108,7 +108,6 @@ def process_with_models_labeled(yaml_directory, resolution):
     print(f"Results saved to {csv_file}")
     print(f"Raw graph data saved to {json_file}")
     
-    
 def main():
     
     folder = ""
