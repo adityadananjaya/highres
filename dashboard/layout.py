@@ -1,6 +1,9 @@
-from dash import Dash, html, dcc, callback, Output, Input
+from dash import Dash, html, dcc, callback, Output, Input, dash_table
 import dash_bootstrap_components as dbc
 from callbacks import *
+from figure_handler import *
+
+
 
 controls = dbc.Card([
     html.Div([
@@ -107,8 +110,17 @@ layout = dbc.Container([
             dcc.Graph(figure = {}, id='boxplot')
         ], width=8, id='unlabelled_display', style= {'display': 'block'}),
         dbc.Col([
-            dcc.Graph(figure = {}, id='curveplot')
+            dcc.Graph(figure = {}, id='curveplot'),
+            dbc.Row([
+                dbc.Col([
+                    dcc.Graph(figure={}, id="speed_graph")
+                ], width=6
+                ),
+                dbc.Col([
+                    get_table(["Precision", "Recall", "mAP50", "mAP50-95", "Fitness"])],
+                    id="metric_table",
+                    width=4)
+            ])
         ], width=8, id='labelled_display', style= {'display': 'block'})
-
     ]),
 ], fluid=True)

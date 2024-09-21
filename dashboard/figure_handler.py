@@ -1,6 +1,9 @@
 import plotly.express as px
 from data_handler import *
 from math import floor
+from dash import Dash, dash_table
+import pandas as pd
+
 
 def draw_curve(curve, x, y, model):
     results = get_labeled_results()
@@ -23,7 +26,7 @@ def draw_curve(curve, x, y, model):
         color='model', 
         labels={x: x, y: y},
         title='Precision-Recall Curve',
-        height=750
+        height=600,
     )
     return fig
 
@@ -46,3 +49,34 @@ def dynamic_graph_size(model, fig):
     fig.update_layout(
         height=500*mult,
     )
+
+
+def get_table(columns):
+    results = get_labeled_results()
+    metrics = results[0]
+    metrics = metrics[columns]
+    
+    return dash_table.DataTable(
+        data=metrics.to_dict('records'), 
+        columns=[
+            {"name": i, 
+            "id": i,
+            "type": "numeric",
+            "format": { "specifier": ".3f"}} 
+            for i in metrics.columns])
+
+def speed_fig(model):
+    results = get_labeled_results()
+    metrics = results[0]
+    
+    if(type(model) is str):
+        metrics = metrics[metrics.Model == model]
+    else:
+        metrics = metrics[metrics.Model.isin(model)]
+
+    speed = metrics[["Model", "preprocess", "inference", "loss", "postprocess"]]
+    speed_long = pd.melt(speed, id_vars="Model", value_vars= ['preprocess', 'inference', 'loss', 'postprocess'])
+
+    fig = px.bar(speed_long, x="Model", y="value", color="variable", title="Model Speeds",
+            labels={'value': 'Speed (ms)', 'variable': 'Process'})
+    return fig

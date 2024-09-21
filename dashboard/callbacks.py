@@ -54,7 +54,16 @@ def controls_callback(app):
                 {'display': 'none'}, {'display': 'none'},
                 {'display': 'block'}, {'display': 'block'})
 
+def speed_graph_callback(app):
+    @app.callback(
+        Output(component_id="speed_graph", component_property="figure"),
+        Input(component_id='model-labelled', component_property="value")
+    )
+    def update_speed_graph(model):
+        return speed_fig(model)
+
 def register_callbacks(app):
     curve_callback(app)
     labelled_graph_callback(app)
     controls_callback(app)
+    speed_graph_callback(app)
