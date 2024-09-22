@@ -12,11 +12,7 @@ def labelled_graph_callback(app):
         Input(component_id="stat", component_property="value")
     )
     def update_graph(resol, model, stat):
-        res = filter_results(get_results(), resol, model)
-
-        fig = px.box(res, facet_col="model", y=stat, color="resolution", category_orders={"resolution": [4, 16, 64]}, facet_col_wrap=2)
-
-        dynamic_graph_size(model, fig)
+        fig = unlabelled_graph(resol, model, stat)
 
         return fig
 
@@ -24,17 +20,18 @@ def curve_callback(app):
     @app.callback(
         Output(component_id="curveplot", component_property="figure"),
         Input(component_id="curve", component_property="value"),
-        Input(component_id="model-labelled", component_property="value")
+        Input(component_id="model-labelled", component_property="value"),
+        Input(component_id='resolution-labelled', component_property="value")
     )
-    def update_curve(curve, model):
+    def update_curve(curve, model, resol):
         if curve == "Precision-Recall Curve(B)":
-            return draw_curve('Precision-Recall(B)', 'Recall', 'Precision', model)
+            return draw_curve('Precision-Recall(B)', 'Recall', 'Precision', model, resol)
         elif curve == "F1-Confidence Curve(B)":
-            return draw_curve('F1-Confidence(B)', 'Confidence', 'F1', model)
+            return draw_curve('F1-Confidence(B)', 'Confidence', 'F1', model, resol)
         elif curve == "Precision-Confidence Curve(B)":
-            return draw_curve('Precision-Confidence(B)', 'Confidence', 'Precision', model)
+            return draw_curve('Precision-Confidence(B)', 'Confidence', 'Precision', model, resol)
         elif curve == "Recall-Confidence Curve(B)":
-            return draw_curve('Recall-Confidence(B)', 'Confidence', 'Recall', model)
+            return draw_curve('Recall-Confidence(B)', 'Confidence', 'Recall', model, resol)
 
 def controls_callback(app):
     @app.callback(
