@@ -3,18 +3,7 @@ import dash_bootstrap_components as dbc
 from callbacks import *
 from figure_handler import *
 
-
-
-controls = dbc.Card([
-    html.Div([
-        "Metrics",
-        dcc.RadioItems(
-            options=['Unlabelled', 'Labelled'],
-            value='Unlabelled',
-            id='controls'
-        )
-    ]),
-    html.Div([
+unlabelled_controls = html.Div([
         html.Div([
             "Resolution",
             dcc.Dropdown(
@@ -54,8 +43,9 @@ controls = dbc.Card([
                 id='stat'
             )
         ]),
-    ], id='unlabelled_controls', style= {'display': 'block'}),
-    html.Div([
+    ], id='unlabelled_controls', style= {'display': 'block'})
+
+labelled_controls = html.Div([
         html.Div([
             "Curve",
             dcc.Dropdown(
@@ -73,9 +63,10 @@ controls = dbc.Card([
             "Resolution",
             dcc.Dropdown(
                 options=[
+                    {'label': '4 MP Images', 'value': '4'},
                     {'label': '16 MP Images', 'value':'16'}
                 ],
-                value=['16'], 
+                value=['4', '16'], 
                 id='resolution-labelled', 
                 multi=True
             )
@@ -90,13 +81,57 @@ controls = dbc.Card([
                     {'label': 'YOLOv8 Small', 'value':'small'},
                     {'label': 'YOLOv8 Nano', 'value':'nano'}
                 ],
-                value=['extra_large', 'nano'],
+                value=['extra_large', 'medium', 'nano'],
                 id='model-labelled',
                 multi=True
             )
         ])
     ], id='labelled_controls', style= {'display': 'block'})
+
+controls = dbc.Card([
+    html.Div([
+        "Metrics",
+        dcc.RadioItems(
+            options=['Unlabelled', 'Labelled'],
+            value='Unlabelled',
+            id='controls'
+        )
+    ]),
+    unlabelled_controls,
+    labelled_controls
 ], body=True, style={'margin-top': '50px'})
+
+labelled_display = dbc.Col([
+    dcc.Graph(figure = {}, id='boxplot')], 
+    width=8, id='unlabelled_display', 
+    style= {'display': 'block'}
+)
+
+unlabelled_display = dbc.Col([
+    dcc.Tabs([
+        dcc.Tab(label='Curves', children=[
+            dbc.Col([
+                dcc.Graph(figure = {}, id='curveplot')
+            ])
+        ]),
+        dcc.Tab(label='Processing Speed', children=[
+            dbc.Col([
+                dcc.Graph(figure={}, id="speed_graph")
+            ]
+            )
+        ]),
+        dcc.Tab(label='Metrics', children=[
+            dbc.Col([
+                get_table(["Model", "resolution", "Precision", "Recall", "mAP50", "mAP50-95", "Fitness"])],
+                id="metric_table",
+            )
+        ])
+    ])
+], 
+    width=8, 
+    id='labelled_display', 
+    style= {'display': 'block'}
+)
 
 
 layout = dbc.Container([
@@ -106,21 +141,7 @@ layout = dbc.Container([
     ]),
     dbc.Row([
         dbc.Col(controls, width=4),
-        dbc.Col([
-            dcc.Graph(figure = {}, id='boxplot')
-        ], width=8, id='unlabelled_display', style= {'display': 'block'}),
-        dbc.Col([
-            dcc.Graph(figure = {}, id='curveplot'),
-            dbc.Row([
-                dbc.Col([
-                    dcc.Graph(figure={}, id="speed_graph")
-                ], width=6
-                ),
-                dbc.Col([
-                    get_table(["Precision", "Recall", "mAP50", "mAP50-95", "Fitness"])],
-                    id="metric_table",
-                    width=4)
-            ])
-        ], width=8, id='labelled_display', style= {'display': 'block'})
+        labelled_display,
+        unlabelled_display
     ]),
 ], fluid=True)
