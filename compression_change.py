@@ -72,7 +72,7 @@ def compression_change(folder_path, compressions):
 
     # Make directories for each resolution
     for percentage in compressions:
-        if percentage < 0 or percentage > 100:
+        if percentage <= 0 or percentage >= 100:
             print("Invalid ({}%) percentage size".format(percentage))
         else:
             compressions_passed.append(percentage)
