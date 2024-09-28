@@ -73,7 +73,7 @@ def process_with_models_labeled(yaml_directory, resolution):
     data=[]
     
     for name,model in models.items():
-        results = model.val(data=yaml_file, save_json=True, save_txt=True, imgsz=get_imgsz(resolution))
+        results = model.val(data=yaml_file, save_json=True, save_txt=True, imgsz=get_imgsz(resolution), batch = 4)
         
         mAP50 = results.results_dict['metrics/mAP50(B)']
         precision = results.results_dict['metrics/precision(B)']
