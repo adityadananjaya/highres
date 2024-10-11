@@ -53,4 +53,7 @@ python3 app.py
 - Copy that link and paste it into the web browser. This should run the app.
 - Once you are done, open the terminal back and press CTRL + C. This should terminate the app. 
 
-### More entries and updates to follow as project progresses
+## YOLO Model-X trained on 64 megapixel images augmented by SAHI slicing:
+### [Google Drive Link](https://drive.google.com/drive/folders/15YDI9WOJUP_usr13RWkmId3H91eQxRfH?usp=sharing)
+
+## More entries and updates to follow as project progresses
