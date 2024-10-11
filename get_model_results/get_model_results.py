@@ -14,13 +14,10 @@ from json_to_yolo import *
 import shutil
 
 def return_yolo_models():
-    modelx = YOLO("yolov8x.pt")
-    modell = YOLO("yolov8l.pt")
-    modelm = YOLO("yolov8m.pt")
-    models = YOLO("yolov8s.pt")
-    modeln = YOLO("yolov8n.pt")
+    modelx = YOLO("best.pt")
+    
 
-    all_models = {"extra_large": modelx, "large": modell, "medium": modelm, "small":models, "nano":modeln}
+    all_models = {"extra_large": modelx}
     return all_models
 
 def write_csv_files(data, fieldnames):
