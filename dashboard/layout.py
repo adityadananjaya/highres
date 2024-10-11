@@ -64,7 +64,8 @@ labelled_controls = html.Div([
             dcc.Dropdown(
                 options=[
                     {'label': '4 MP Images', 'value': '4'},
-                    {'label': '16 MP Images', 'value':'16'}
+                    {'label': '16 MP Images', 'value':'16'},
+                    {'label': '64 MP Images', 'value':'64'}
                 ],
                 value=['4', '16'], 
                 id='resolution-labelled', 
@@ -122,7 +123,7 @@ unlabelled_display = dbc.Col([
         ]),
         dcc.Tab(label='Metrics', children=[
             dbc.Col([
-                get_table(["Model", "resolution", "Precision", "Recall", "mAP50", "mAP50-95", "Fitness"])],
+                get_table(["model", "resolution", "Precision", "Recall", "mAP50", "mAP50-95", "Fitness"])],
                 id="metric_table",
             )
         ])
