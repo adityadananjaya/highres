@@ -12,12 +12,17 @@ import json
 from slicing import slice
 from json_to_yolo import *
 import shutil
+import time
+from numpy import trapz
 
 def return_yolo_models():
-    modelx = YOLO("best.pt")
-    
+    modelx = YOLO("yolov8x.pt")
+    modell = YOLO("yolov8l.pt")
+    modelm = YOLO("yolov8m.pt")
+    models = YOLO("yolov8s.pt")
+    modeln = YOLO("yolov8n.pt")
 
-    all_models = {"extra_large": modelx}
+    all_models = {"extra_large": modelx, "large": modell, "medium": modelm, "small":models, "nano":modeln}
     return all_models
 
 def write_csv_files(data, fieldnames):
@@ -72,7 +77,7 @@ def preprocess(image_dir, json_dir, resolution):
     convert_coco_json_to_yolo(sahi_json_dir, yolo_dir)
 
     # copy data.yaml
-    src = os.path.join(dirname, "data/data.yaml")
+    src = os.path.join(dirname, "data.yaml")
     copied_yaml = os.path.join(dirname, f"{resolution}mp-sahi/data.yaml")
     shutil.copyfile(src, copied_yaml)
 
@@ -86,7 +91,7 @@ def process_with_models_labeled(yaml_directory, resolution):
     yaml_file = yaml_directory
     csv_file = f'{resolution}mp-labeled-results.csv'
     json_file = f'{resolution}mp-labeled-results.json'
-    csv_header = ['Model','Precision','Recall','mAP50', 'mAP50-95', 'Fitness', 'preprocess', 'inference', 'loss', 'postprocess'] 
+    csv_header = ['Model','Precision','Recall','mAP50', 'mAP50-95', 'Fitness', 'Time Taken'] 
     with open(os.path.join(os.path.expanduser('~'), csv_file), 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(csv_header)
@@ -94,24 +99,20 @@ def process_with_models_labeled(yaml_directory, resolution):
     data=[]
     
     for name,model in models.items():
+        start = time.time()
         results = model.val(data=yaml_file, save_json=True, save_txt=True)
+        time_taken = time.time() - start
         
         mAP50 = results.results_dict['metrics/mAP50(B)']
         precision = results.results_dict['metrics/precision(B)']
         recall = results.results_dict['metrics/recall(B)']
         fitness = results.results_dict['fitness']
         mAP50_95 = results.results_dict['metrics/mAP50-95(B)']
-
-        preprocess = results.speed['preprocess']
-        inference = results.speed['inference']
-        loss = results.speed['loss']
-        postprocess = results.speed['postprocess']
-
-        # Write quantitative results to CSV
-        with open(os.path.join(os.path.expanduser('~'), csv_file), 'a', newline='') as file:
-            writer = csv.writer(file)
-            print(f"writing to {csv_file}")
-            writer.writerow([name, mAP50, mAP50_95, recall, precision, fitness, preprocess, inference, loss, postprocess])
+        
+        #preprocess = results.speed['preprocess']
+        #inference = results.speed['inference']
+        #loss = results.speed['loss']
+        #postprocess = results.speed['postprocess']
 
         # Write graph results to CSV
         for i in range(4):
@@ -120,8 +121,15 @@ def process_with_models_labeled(yaml_directory, resolution):
             x_vals = results.curves_results[i][0].tolist()
             y_label = results.curves_results[i][3]
             y_vals = results.curves_results[i][1].tolist()
-            dict_ = {'model': name, 'resolution': resolution, 'curve': curve, x_label:x_vals, y_label:y_vals}
+            AUC = trapz(y_vals, dx=x_vals[1] - x_vals[0])[0]
+            dict_ = {'model': name, 'resolution': resolution, 'curve': curve, x_label:x_vals, y_label:y_vals, 'AUC':AUC}
             data.append(dict_)
+
+        # Write quantitative results to CSV
+        with open(os.path.join(os.path.expanduser('~'), csv_file), 'a', newline='') as file:
+            writer = csv.writer(file)
+            print(f"writing to {csv_file}")
+            writer.writerow([name, mAP50, mAP50_95, recall, precision, fitness, time_taken])
 
     with open(os.path.join(os.path.expanduser('~'), json_file), 'a') as f:
         json.dump(data, f)

@@ -86,15 +86,52 @@ labelled_controls = html.Div([
                 id='model-labelled',
                 multi=True
             )
+        ]),
+        html.Div([
+            dbc.Col([
+                dash_table.DataTable(
+                    id='AUCtable',
+                    data=[],
+                    columns=[]
+                )
+            ])
         ])
     ], id='labelled_controls', style= {'display': 'block'})
+
+AUC_table_layout = html.Div(
+    dbc.Accordion([
+        dbc.AccordionItem([
+            html.Div([
+                dbc.Col([
+                    dash_table.DataTable(
+                        id='AUCtable',
+                        data=[],
+                        columns=[]
+                    ),
+                ])
+            ])
+        ], title="Area Under Curve (AUC) Table"),
+        dbc.AccordionItem([
+            html.Div([
+                dbc.Col([
+                    dcc.Graph(figure={}, id="speed_graph")
+                ]
+                )
+            ])
+        ], title="Model Processing Speeds")
+    ], start_collapsed=True)
+)
+
+speed_graph_layout = html.Div(
+    dbc.Accordion
+)
 
 controls = dbc.Card([
     html.Div([
         "Metrics",
         dcc.RadioItems(
             options=['Unlabelled', 'Labelled'],
-            value='Unlabelled',
+            value='Labelled',
             id='controls'
         )
     ]),
@@ -114,12 +151,6 @@ unlabelled_display = dbc.Col([
             dbc.Col([
                 dcc.Graph(figure = {}, id='curveplot')
             ])
-        ]),
-        dcc.Tab(label='Processing Speed', children=[
-            dbc.Col([
-                dcc.Graph(figure={}, id="speed_graph")
-            ]
-            )
         ]),
         dcc.Tab(label='Metrics', children=[
             dbc.Col([
@@ -141,7 +172,7 @@ layout = dbc.Container([
         html.Hr()
     ]),
     dbc.Row([
-        dbc.Col(controls, width=4),
+        dbc.Col([controls, AUC_table_layout], width=4),
         labelled_display,
         unlabelled_display
     ]),
