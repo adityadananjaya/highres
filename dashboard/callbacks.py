@@ -59,9 +59,18 @@ def speed_graph_callback(app):
     )
     def update_speed_graph(model, res):
         return speed_fig(model, res)
+    
+def AUC_table_callback(app):
+    @app.callback(
+        [Output("AUCtable", "data"), Output('AUCtable', 'columns')],
+        [Input('model-labelled', "value"), Input('resolution-labelled', "value"), Input('curve', 'value')]
+    )
+    def update_AUC_table(model, res, curve):
+        return AUC_table(model, res, curve)
 
 def register_callbacks(app):
     curve_callback(app)
     labelled_graph_callback(app)
     controls_callback(app)
     speed_graph_callback(app)
+    AUC_table_callback(app)

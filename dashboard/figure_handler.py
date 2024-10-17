@@ -87,13 +87,23 @@ def get_table(columns):
             for i in metrics.columns]
     )
 
+# Resolution # Model # AUC #
+
+def AUC_table(model, res, curve):
+    results = get_labeled_results()
+    metrics = filter_results(results[1], res, model)
+    curve_ = curve.split()[0] + "(B)"
+    metrics = metrics[metrics.curve == curve_]
+    AUCs = metrics[["resolution", "model", "AUC"]]
+    return AUCs.to_dict('records'), [{'id': c, 'name': c} for c in AUCs.columns]
+
 def speed_fig(model, res):
     results = get_labeled_results()
     metrics = filter_results(results[0], res, model)
 
-    speed = metrics[["model", "resolution", "preprocess", "inference", "loss", "postprocess"]]
-    speed_long = pd.melt(speed, id_vars=["model", "resolution"], value_vars= ['preprocess', 'inference', 'loss', 'postprocess'])
+    speed = metrics[["model", "resolution", "Time Taken"]]
+    speed_long = pd.melt(speed, id_vars=["model", "resolution"], value_vars= ['Time Taken'])
 
-    fig = px.bar(speed_long, x="model", y="value", facet_col="resolution", color="variable", title="Model Speeds",
-            labels={'value': 'Speed (ms)', 'variable': 'Process'}, facet_col_wrap=2)
+    fig = px.bar(speed_long, x="model", y="value", color="resolution", title="Model Speeds", barmode="group",
+            labels={'value': 'Speed (ms)', 'variable': 'Process'})
     return fig
