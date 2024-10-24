@@ -63,7 +63,7 @@ def graph_trend(stat, stat_idx, model_stats):
 
     plt.legend()
     plt.xlim(min(datasets), max(datasets))
-    plt.ylim(0, max_value + max_value/10)
+    plt.ylim(0, max_value + 10*max_value/(max_value+10))
     plt.title(stat + " over compressions" )
     plt.xlabel("Compressions (%)")
     plt.ylabel(stat)
@@ -110,5 +110,36 @@ def generate_graph(csv):
     graph_trend("Average Detections", 0, model_stats)
     graph_trend("Average Confidence", 1, model_stats)
 
+
+def metrics_graph_generator(csv):
+    """
+    Generates graphs using matplotlib of the results
+    Params
+        csv : String
+            data for the graphs
+    """
+    # Open CSV
+    df = pd.read_csv(csv)
+    model_stats = {}
+    # Read CSV contents
+    for index, row in df.iterrows():
+        model_name = row['model']
+        compression = row['compression']
+        ap = row['AP']
+        ar = row['AR']
+        # Create list of data
+        val_ls = [ap, ar]
+        # Check if model is in model_stats
+        if model_name not in model_stats:
+            model_stats[model_name] = {}
+            model_stats[model_name][compression] = val_ls
+        else:
+            if compression not in model_stats[model_name]:
+                model_stats[model_name][compression] = val_ls
+
+        graph_trend("Average Precision", 0, model_stats)
+        graph_trend("Average Recall", 1, model_stats)
+
 if __name__ == "__main__":
     generate_graph('/home/tsir/MachineLearning/capstone_project/models_performance_unlabelled.csv')
+    metrics_graph_generator('/home/tsir/MachineLearning/capstone_project/huggingface_metrics.csv')

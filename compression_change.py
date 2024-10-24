@@ -65,6 +65,8 @@ def compression_change(folder_path, compressions):
 
     '''
 
+    if folder_path == "" or compressions == []:
+        raise ValueError
 
     files = os.listdir(folder_path)
 
@@ -81,7 +83,11 @@ def compression_change(folder_path, compressions):
     # Create MP version of each image
     print(compressions_passed)
     
+    # Check if image is of valid image format
     for image in files:
+        if image.removeSuffix(".jpg") == image and image.removeSuffix(".jpeg") == image and image.removeSuffix(".png") == image:
+            raise TypeError
+
         for percentage in compressions_passed:
             change_compression(folder_path + "/" + image, percentage, folder_path + "/" + str(percentage) + "percent")
             

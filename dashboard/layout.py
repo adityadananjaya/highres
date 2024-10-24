@@ -65,7 +65,13 @@ labelled_controls = html.Div([
                 options=[
                     {'label': '4 MP Images', 'value': '4'},
                     {'label': '16 MP Images', 'value':'16'},
-                    {'label': '64 MP Images', 'value':'64'}
+                    {'label': '64 MP Images', 'value':'64'},
+                    {'label':'16 MP Images Compressed By 70%', 'value': '16 Compressed By 70%'},
+                    {'label': '16 MP Images Compressed By 80%', 'value': '16 Compressed By 80%'},
+                    {'label': '16 MP Images Compressed By 90%', 'value': '16 Compressed By 90%'},
+                    {'label': '64 MP Images Compressed By 70%', 'value': '64 Compressed By 70%'},
+                    {'label': '64 MP Images Compressed By 80%', 'value': '64 Compressed By 80%'},
+                    {'label': '64 MP Images Compressed By 90%', 'value': '64 Compressed By 90%'}
                 ],
                 value=['4', '16'], 
                 id='resolution-labelled', 
@@ -77,6 +83,7 @@ labelled_controls = html.Div([
             dcc.Dropdown(
                 options=[
                     {'label': 'YOLOv8 Extra Large', 'value':'extra_large'},
+                    {'label': 'YOLOv8 Extra Large Trained', 'value':'extra_large_trained'},
                     {'label': 'YOLOv8 Large', 'value':'large'},
                     {'label': 'YOLOv8 Medium', 'value':'medium'},
                     {'label': 'YOLOv8 Small', 'value':'small'},
