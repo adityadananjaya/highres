@@ -108,6 +108,16 @@ python3 app.py
 - Copy that link and paste it into the web browser. This should run the app.
 - Once you are done, open the terminal back and press CTRL + C. This should terminate the app. 
 
+## Image Compression Script Usage
+```
+python3 compression_change.py <directory-of-images> <percentage compressions of original required>
+```
+Example usage:
+
+```
+python3 compression_change.py path/to/images 70 80 90
+```
+The command above takes all the images in path/to/images directory, and compresses them to 70%, 80%, 90% of original, creating 3 separate folders in the directory, named 70, 80, 90 containing their corresponding images.
 ## YOLO Model-X trained on 64 megapixel images augmented by SAHI slicing:
 ### [Google Drive Link](https://drive.google.com/drive/folders/15YDI9WOJUP_usr13RWkmId3H91eQxRfH?usp=sharing)
 
