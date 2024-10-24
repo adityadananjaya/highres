@@ -12,24 +12,49 @@ def get_results():
     results = pd.concat([results_16mp, results_4mp, results_64mp])
     return results
 
+def load_datasets(data):
+    metrics_list = []
+    curves_list = []
+    for dir, res in data:
+        if dir.endswith(".csv"):
+            metrics = pd.read_csv(dir)
+            metrics['resolution'] = res
+            metrics_list.append(metrics)
+        elif dir.endswith(".json"):
+            curves = pd.read_json(dir)
+            curves['resolution'] = res
+            curves_list.append(curves)
+
+    metrics_concat = pd.concat(metrics_list)
+    curves_concat = pd.concat(curves_list)
+
+    return (metrics_concat, curves_concat)
+
+
 def get_labeled_results():
-    metrics_4mp = pd.read_csv('data/4mp-sahi-labeled-results.csv')
-    curves_4mp = pd.read_json('data/4mp-sahi-labeled-results.json')
-    metrics_16mp = pd.read_csv('data/16mp-sahi-labeled-results.csv')
-    curves_16mp = pd.read_json('data/16mp-sahi-labeled-results.json')
-    metrics_64mp = pd.read_csv('data/64mp-labeled-results.csv')
-    curves_64mp = pd.read_json('data/64mp-labeled-results.json')
-    
-    metrics_4mp['resolution'] = '4'
-    metrics_16mp['resolution'] = '16'
-    metrics_64mp['resolution'] = '64'
-    curves_4mp['resolution'] = '4'
-    curves_16mp['resolution'] = '16'
-    curves_64mp['resolution'] = '64'
 
-    
+    metrics, curves = load_datasets([
+        ('data/4mp-sahi-labeled-results.csv', '4'),
+        ('data/4mp-sahi-labeled-results.json', '4'),
+        ('data/16mp-sahi-labeled-results.csv', '16'),
+        ('data/16mp-sahi-labeled-results.json', '16'),
+        ('data/64mp-labeled-results.csv', '64'),
+        ('data/64mp-labeled-results.json', '64'),
+        ('data/16mp-labeled-results-compressed-70.csv', '16 Compressed By 70%'),
+        ('data/16mp-labeled-results-compressed-70.json', '16 Compressed By 70%'),
+        ('data/16mp-labeled-results-compressed-80.csv', '16 Compressed By 80%'),
+        ('data/16mp-labeled-results-compressed-80.json', '16 Compressed By 80%'),
+        ('data/16mp-labeled-results-compressed-90.csv', '16 Compressed By 90%'),
+        ('data/16mp-labeled-results-compressed-90.json', '16 Compressed By 90%'),
+        ('data/64mp-labeled-results-uncompressed-trained.csv', '64'),
+        ('data/64mp-labeled-results-uncompressed-trained.json', '64'),
+        ('data/64mp-labeled-results-70.csv', '64 Compressed By 70%'),
+        ('data/64mp-labeled-results-70.json', '64 Compressed By 70%'),
+        ('data/64mp-labeled-results-80.csv', '64 Compressed By 80%'),
+        ('data/64mp-labeled-results-80.json', '64 Compressed By 80%'),
+        ('data/64mp-labeled-results-90.csv', '64 Compressed By 90%'),
+        ('data/64mp-labeled-results-90.json', '64 Compressed By 90%')
 
-    metrics = pd.concat([metrics_4mp, metrics_16mp, metrics_64mp])
-    curves = pd.concat([curves_4mp, curves_16mp, curves_64mp])
+    ])
 
     return (metrics, curves)

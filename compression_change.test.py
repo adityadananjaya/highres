@@ -43,6 +43,14 @@ class TestCompressionChange(unittest.TestCase):
         os.rmdir("./test_resolution_images/90percent")
         os.rmdir("./test_resolution_images/85percent")
     
+    def test_empty_parameters(self):
+        self.assertRaises( ValueError, compression_change("", []) )
+
+    def test_correct_format(self):
+        self.assertRaises(TypeError, compression_change("./test_correct_format", [90]))
+
+        os.rmdir("./test_correct_format/95percent")
+
     def test_incorrect_percentage(self):
         compression_change("./test_resolution_images", [-1, -500, 101, 400])
 

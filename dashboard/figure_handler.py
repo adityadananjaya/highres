@@ -105,5 +105,5 @@ def speed_fig(model, res):
     speed_long = pd.melt(speed, id_vars=["model", "resolution"], value_vars= ['Time Taken'])
 
     fig = px.bar(speed_long, x="model", y="value", color="resolution", title="Model Speeds", barmode="group",
-            labels={'value': 'Speed (ms)', 'variable': 'Process'})
+            labels={'value': 'Time Taken (s)', 'variable': 'Process'})
     return fig

@@ -1,0 +1,4 @@
+model,compression,AP,AR
+facebook/detr-resnet-50,100,0.008,0.010
+facebook/detr-resnet-50,90,0.009,0.010
+facebook/detr-resnet-50,80,0.008,0.010
