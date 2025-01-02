@@ -1,21 +1,8 @@
+### Note: This repository is a duplicate of the one stored in my university's Github account. It has been reproduced here, with permission from my client. This is a collaborative project involving four group members, whose names have been redacted from this README for privacy.
+
 # High-Res vs Low-Res Images for Long-Range AI Detection of Vehicles
 
 This repository is dedicated to exploring the impact of image resolution on the performance of AI models in detecting construction vehicles over long distances. The project involves using a 128 Megapixel camera system and comparing the results across different resolutions.
-
-## Team members:
-
-| Student Name                          | Unikey   | Student ID  |
-|---------------------------------------|----------|-------------|
-| Shabab Saleheen                       | ssal6113 | 520226274   |
-| Tolga Sirkeci                        | tsir8879 | 510434883   |
-| Putu Gede Aditya Dananjaya          | pdan5295 | 520095245   |
-| Broden Suffern                       | bsuf3055 | 510448938   |
-
-### Tutor: Conor Chen, jche4519@uni.sydney.edu.au
-
-### User stories: [Bitbucket Link](https://bitbucket.org/comp3888_m10_3_/capstone_project/src/main/docs/user-stories/user-stories.md)
-
-### Meeting Minutes: [Bitbucket Link](https://bitbucket.org/comp3888_m10_3_/capstone_project/src/main/docs/minutes/meeting_minutes.md)
 
 ## Running the YOLO image validation scripts
 
