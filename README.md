@@ -1,4 +1,4 @@
-### Note: This repository is a duplicate of the one stored in my university's Github account. It has been reproduced here, with permission from my client. This is a collaborative project involving four group members, whose names have been redacted from this README for privacy.
+### Note: This repository is a duplicate of the one stored in my university's Github account. It has been reproduced here, with permission from the client. This is a collaborative project involving four group members, whose names have been redacted from this README for privacy.
 
 # High-Res vs Low-Res Images for Long-Range AI Detection of Vehicles
 
